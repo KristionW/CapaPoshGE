@@ -21,10 +21,10 @@
         foreach ($computer in $OldList) {
             try {
 				$adcomputer = (Get-ADComputer $computer.Unitname -Properties LastLogonDate).LastLogonDate
-				$CurrentUser = (Get-CapaUnitRelations -UnitName $computer.Unitname -UnitType Computer | Where-Object {$_.RelationType -like "Current User"}).Name
             } 
             Catch{$adcomputer = $null}
 
+				$CurrentUser = (Get-CapaUnitRelations -UnitName $computer.Unitname -UnitType Computer | Where-Object {$_.RelationType -like "Current User"}).Name
                 $FinalList += [pscustomobject][ordered] @{
 					Name = $computer.Unitname
 					CurrentUser = $CurrentUser
