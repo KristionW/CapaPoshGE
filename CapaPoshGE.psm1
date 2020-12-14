@@ -5,13 +5,15 @@
 	param
 	(
         [Parameter(Mandatory = $false)]
-        [string]$ExportPath=""
+		[string]$ExportPath="",
+		[Parameter(Mandatory = $false)]
+		[int]$DaysSinceLastRun = 100
 	)
 	
 	Begin
 	{
 		$FinalList = @()
-        $Compare = (Get-Date).AddDays(-100)
+        $Compare = (Get-Date).AddDays($DaysSinceLastRun * -1)
 	}
 	Process
 	{
