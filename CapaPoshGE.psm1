@@ -7,7 +7,7 @@
         [Parameter(Mandatory = $false)]
 		[string]$ExportPath="",
 		[Parameter(Mandatory = $false)]
-		[int]$DaysSinceLastRun = 100
+		[int]$DaysSinceLastRun = 95
 	)
 	
 	Begin
@@ -20,12 +20,14 @@
         $OldList = Get-CapaUnit -UnitType Computer | Where-Object {$_.UnitLastExecuted -lt $Compare} | Select-Object Unitname, UnitCreated, Unitlastexecuted
         foreach ($computer in $OldList) {
             try {
-                $adcomputer = (Get-ADComputer $computer.Unitname -Properties LastLogonDate).LastLogonDate
+				$adcomputer = (Get-ADComputer $computer.Unitname -Properties LastLogonDate).LastLogonDate
+				$CurrentUser = (Get-CapaUnitRelations -UnitName $computer.Unitname -UnitType Computer | Where-Object {$_.RelationType -like "Current User"}).Name
             } 
             Catch{$adcomputer = $null}
 
                 $FinalList += [pscustomobject][ordered] @{
-				    Name = $computer.Unitname
+					Name = $computer.Unitname
+					CurrentUser = $CurrentUser
 				    LastRunCapa = $computer.UnitLastExecuted
                     LastLogonAD = $adcomputer
 				}
