@@ -24,14 +24,14 @@
             } 
             Catch{$adcomputer = $null}
 
-				$CurrentUser = (Get-CapaUnitRelations -UnitName $computer.Unitname -UnitType Computer | Where-Object {$_.RelationType -like "Current User"}).Name
-                $FinalList += [pscustomobject][ordered] @{
-					Name = $computer.Unitname
-					CurrentUser = $CurrentUser
-				    LastRunCapa = $computer.UnitLastExecuted
-                    LastLogonAD = $adcomputer
-				}
-            }
+			$CurrentUser = (Get-CapaUnitRelations -UnitName $computer.Unitname -UnitType Computer | Where-Object {$_.RelationType -like "Current User"}).Name
+			$FinalList += [pscustomobject][ordered] @{
+				Name = $computer.Unitname
+				CurrentUser = $CurrentUser
+				LastRunCapa = $computer.UnitLastExecuted
+				LastLogonAD = $adcomputer
+			}
+		}
     }
     End
     {
