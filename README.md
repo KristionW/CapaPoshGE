@@ -9,8 +9,6 @@ This is why im keeping this seperate
   Get-CapaUnitOld
   Get-CapaUnitBitlocker
 ```
-
- 
 #### Examples
 ##### Get-CapaUnitOld
 ```
